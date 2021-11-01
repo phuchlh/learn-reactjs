@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useHistory, useLocation, useRouteMatch } from "react-router";
 import TodoList from "../../components/TodoList";
 import queryString from "query-string";
+import TodoForm from "../../components/TodoForm";
 ListPage.propTypes = {};
 
 function ListPage(props) {
@@ -77,6 +78,7 @@ function ListPage(props) {
   };
   const handleShowAllClick = () => {
     // setFilterStatus("all");
+
     //những cái này là để thay đổi URL
     const queryparams = { status: "all" };
     history.push({
@@ -112,8 +114,14 @@ function ListPage(props) {
       (todo) => filterStatus === "all" || filterStatus === todo.status
     );
   }, [todoList, filterStatus]);
+
+  const handleTodoFormSubmit = (values) => {
+    console.log("form submit: ", values);
+  };
   return (
     <div>
+      <h3>Todo form</h3>
+      <TodoForm onSubmit={handleTodoFormSubmit} />
       <h3>Todo list</h3>
       <TodoList todoList={rederedTodoList} onTodoClick={handleTodoClick} />
       {/* nghĩa là vứt cho TodoList render cái list đó đi, khi nào mà có click thì gọi giùm cái handle */}
